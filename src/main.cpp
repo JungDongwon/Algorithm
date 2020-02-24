@@ -1,23 +1,28 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-int n,m;
-int a[100][100];
-int d[100][100];
+int m,n;
+int a[1001][1001];
+int d[1001][1001];
 int dx[] = {0,0,-1,1};
 int dy[] = {1,-1,0,0};
+queue<pair<int,int>> q;
+int cnt=0;
 int main() {
 	freopen("a.txt","r",stdin);
-	cin >> n >> m;
+	cin >> m >> n;
 	for(int i=0;i<n;i++){
 		for(int j=0;j<m;j++){
-			scanf("%1d",&a[i][j]);
+			int t;
+			cin >> t;
+			a[i][j] = t;
+			if(t==0) cnt++;
+			if(t==1){
+				q.push(make_pair(i,j));
+				d[i][j]=1;	
+			}
 		}
 	}
-	
-	queue<pair<int,int>> q;
-	q.push(make_pair(0,0));
-	d[0][0]=1;
 	while(!q.empty()){
 		int x = q.front().first;
 		int y = q.front().second;
@@ -26,14 +31,23 @@ int main() {
 			int nx = x+dx[k];
 			int ny = y+dy[k];
 			if(nx>=0 && nx<n && ny>=0 && ny<m){
-				if(d[nx][ny]==0 && a[nx][ny]==1){
+				if(d[nx][ny]==0 && a[nx][ny]==0){
 					q.push(make_pair(nx,ny));
 					d[nx][ny] = d[x][y] + 1;
 				}
 			}
 		}
 	}
-	cout << d[n-1][m-1] << '\n';
-	
+	int ans=0;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			if(d[i][j]==0 && a[i][j]!=-1){
+				cout << "-1" << '\n';
+				return 0;
+			}
+			ans = max(ans,d[i][j]);	
+		}
+	}
+	cout << ans-1 << '\n';
 	
 } 
