@@ -1,39 +1,44 @@
 #include <iostream>
 #include <cstring>
+#include <tuple>
 #include <queue>
 using namespace std;
-#define MAX 100000
-int m,n;
-int d[100001];
+int d[1001][1001];
 int main() {
 	freopen("a.txt","r",stdin);
-	int n,k;
-	cin >> n >> k;
+	int n;
+	cin >> n;
 	memset(d,-1,sizeof(d));
-	queue<int> q;
-	d[n]=0;
-	q.push(n);
+	queue<pair<int,int>> q;
+	q.push(make_pair(1,0));
+	d[1][0]=0;
 	while(!q.empty()){
-		int c = q.front();
+		int s,c;
+		tie(s,c) = q.front();
 		q.pop();
-		if(c-1>=0){
-			if(d[c-1]==-1){
-				q.push(c-1);
-				d[c-1]=d[c]+1;
-			}
+		if(d[s][s]==-1){
+			d[s][s] = d[s][c] + 1;
+			q.push(make_pair(s,s));	
 		}
-		if(c+1<=MAX){
-			if(d[c+1]==-1){
-				q.push(c+1);
-				d[c+1]=d[c]+1;
-			}
+		if(s+c<=n && d[s+c][c]==-1){
+			d[s+c][c] = d[s][c] + 1;
+			q.push(make_pair(s+c,c));
 		}
-		if(c*2<=MAX){
-			if(d[c*2]==-1){
-				q.push(c*2);
-				d[c*2]=d[c]+1;
+		if(s-1>=0 && d[s-1][c]==-1){
+			d[s-1][c] = d[s][c] + 1;
+			q.push(make_pair(s-1,c));
+		}
+	}
+	int ans=-1;
+	for(int i=0;i<=n;i++){
+		if(d[n][i]!=-1){
+			if(ans==-1||ans>d[n][i]){
+				ans=d[n][i];	
 			}
 		}
 	}
-	cout << d[k] << '\n';
+	cout << ans << '\n';
+	
+	
+	
 } 
