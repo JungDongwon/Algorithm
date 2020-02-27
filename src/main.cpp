@@ -1,44 +1,53 @@
 #include <iostream>
 #include <cstring>
 #include <tuple>
-#include <queue>
+#include <deque>
 using namespace std;
-int d[1001][1001];
+int a[101][101];
+int d[101][101];
+int dx[4] = {0,0,1,-1};
+int dy[4] = {1,-1,0,0};
 int main() {
 	freopen("a.txt","r",stdin);
-	int n;
-	cin >> n;
+	int m,n;
+	cin >> m >> n;
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			scanf("%1d",&a[i][j]);	
+		}
+	}
 	memset(d,-1,sizeof(d));
-	queue<pair<int,int>> q;
-	q.push(make_pair(1,0));
-	d[1][0]=0;
+	deque<pair<int,int>> q;
+	d[1][1]=0;
+	q.push_back(make_pair(1,1));
 	while(!q.empty()){
-		int s,c;
-		tie(s,c) = q.front();
-		q.pop();
-		if(d[s][s]==-1){
-			d[s][s] = d[s][c] + 1;
-			q.push(make_pair(s,s));	
-		}
-		if(s+c<=n && d[s+c][c]==-1){
-			d[s+c][c] = d[s][c] + 1;
-			q.push(make_pair(s+c,c));
-		}
-		if(s-1>=0 && d[s-1][c]==-1){
-			d[s-1][c] = d[s][c] + 1;
-			q.push(make_pair(s-1,c));
-		}
-	}
-	int ans=-1;
-	for(int i=0;i<=n;i++){
-		if(d[n][i]!=-1){
-			if(ans==-1||ans>d[n][i]){
-				ans=d[n][i];	
-			}
+		int x = q.front().first;
+		int y = q.front().second;
+		q.pop_front();
+		for(int k=0;k<4;k++){
+			int nx = x+dx[k];
+			int ny = y+dy[k];
+			if(nx>=1 && nx<=n && ny>=1 && ny<=m){
+				if(a[nx][ny]==0 && d[nx][ny]==-1){
+					q.push_front(make_pair(nx,ny));	
+					d[nx][ny] = d[x][y];
+				}
+				if(a[nx][ny]==1 && (d[nx][ny]==-1 || d[nx][ny]>d[x][y]+1)){
+					q.push_back(make_pair(nx,ny));	
+					d[nx][ny] = d[x][y] + 1;
+				}
+			}	
 		}
 	}
-	cout << ans << '\n';
 	
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			printf("%d ",d[i][j]);	
+		}
+		printf("\n");
+	}
+	
+	cout << d[n][m] << '\n';
 	
 	
 } 
