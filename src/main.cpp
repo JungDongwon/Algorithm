@@ -28,26 +28,26 @@ int main() {
 			int nx = x+dx[k];
 			int ny = y+dy[k];
 			if(nx>=1 && nx<=n && ny>=1 && ny<=m){
-				if(a[nx][ny]==0 && d[nx][ny]==-1){
-					q.push_front(make_pair(nx,ny));	
-					d[nx][ny] = d[x][y];
+				if(d[nx][ny]==-1){
+					if(a[nx][ny]==0){
+						q.push_front(make_pair(nx,ny));	
+						d[nx][ny] = d[x][y];
+					}
+					if(a[nx][ny]==1){
+						q.push_back(make_pair(nx,ny));	
+						d[nx][ny] = d[x][y] + 1;
+					}
 				}
-				if(a[nx][ny]==1 && (d[nx][ny]==-1 || d[nx][ny]>d[x][y]+1)){
-					q.push_back(make_pair(nx,ny));	
-					d[nx][ny] = d[x][y] + 1;
-				}
+				
 			}	
 		}
 	}
-	
-	for(int i=1;i<=n;i++){
+/*	for(int i=1;i<=n;i++){
 		for(int j=1;j<=m;j++){
 			printf("%d ",d[i][j]);	
 		}
 		printf("\n");
 	}
-	
+	*/
 	cout << d[n][m] << '\n';
-	
-	
 } 
