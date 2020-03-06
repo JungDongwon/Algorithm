@@ -59,6 +59,7 @@ int main() {
 			int nx = x + dx[k];
 			int ny = y + dy[k];
 			if( nx<0 || nx>=r || ny<0 || ny>=c ) continue;
+			if(go[nx][ny]!=-1) continue;
 			if(a[nx][ny]=='X') continue;
 			if(water[nx][ny]!=-1 && go[x][y]+1>=water[nx][ny]) continue;
 			go[nx][ny] = go[x][y] + 1;
