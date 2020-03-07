@@ -1,53 +1,47 @@
 #include <iostream>
-#include <cstring>
 #include <queue>
+#include <string>
+#include <map>
 using namespace std;
-#define MAX 100000
-int m,n;
-int d[100001];
-int from[100001];
-
-void print(int n, int m){
-	if(n!=m){
-		print(n,from[m]);	
-	}
-	cout << m << " ";
-}
-
+int dx[] = {0, 0, 1, -1};
+int dy[] = {1, -1, 0, 0};
 int main() {
-	int n,k;
-	cin >> n >> k;
-	memset(d,-1,sizeof(d));
+	freopen("a.txt","r",stdin);
+	int start=0;
+	for(int i=0;i<3;i++){
+		for(int j=0;j<3;j++){
+			int tmp;
+			cin >> tmp;
+			if(tmp==0) tmp=9;
+			start = start*10 + tmp;
+		}
+	}
 	queue<int> q;
-	d[n]=0;
-	q.push(n);
+	map<int,int> d; // dist를 기록하는 저장소가 배열이 아니라 맵
+	
+	d[start]=0;
+	q.push(start);
 	while(!q.empty()){
-		int c = q.front();
+		int now_num = q.front();
+		string now = to_string(now_num);
 		q.pop();
-		if(c-1>=0){
-			if(d[c-1]==-1){
-				q.push(c-1);
-				from[c-1]=c;
-				d[c-1]=d[c]+1;
-			}
-		}
-		if(c+1<=MAX){
-			if(d[c+1]==-1){
-				q.push(c+1);
-				from[c+1]=c;
-				d[c+1]=d[c]+1;
-			}
-		}
-		if(c*2<=MAX){
-			if(d[c*2]==-1){
-				q.push(c*2);
-				from[c*2]=c;
-				d[c*2]=d[c]+1;
+		int z = now.find('9');
+		int x = z/3;
+		int y = z%3;
+		for(int k=0;k<4;k++){
+			int nx = x+dx[k];
+			int ny = y+dy[k];
+			if(nx>=0 && nx<3 && ny>=0 && ny<3){
+				string next = now;
+				swap(next[x*3+y],next[nx*3+ny]);
+				int num = stoi(next);
+				if(d.count(num)==0){
+					d[num] = d[now_num] + 1;
+					q.push(num);
+				}
 			}
 		}
 	}
-	cout << d[k] << '\n';
-	print(n,k);
-	cout << '\n';
-	
+	if(d.count(123456789)==0) cout << -1 << '\n';
+	else cout << d[123456789] <<'\n';
 } 
