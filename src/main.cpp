@@ -1,86 +1,34 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-bool d[201][201];
-bool ans[201];
+int dist[100001];
+bool check[100001];
+int cnt[100001];
 int main() {
 	freopen("a.txt","r",stdin);
-	int a,b,c;
-	cin >> a >> b >> c;
-	queue<pair<int,int>> q;
-	q.push(make_pair(0,0));
-	d[0][0] = true;
-	ans[c] = true;
+	int n,k;
+	cin >> n >> k;
+	queue<int> q;
+	q.push(n);
+	dist[n]=0;
+	check[n]=true;
+	cnt[n]=1;
 	while(!q.empty()){
-		int x,y,z;
-		x = q.front().first;
-		y = q.front().second;
-		z = c-x-y;
+		int now = q.front();
 		q.pop();
-		int nx,ny,nz;
-		//x->y 물->용기
-		nx=x,ny=y,nz=z;
-		ny+=nx;
-		nx=0;
-		if(ny>b){ nx=ny-b; ny=b; } 
-		if(!d[nx][ny]){
-			q.push(make_pair(nx,ny));
-			d[nx][ny]=true;
-			if(nx==0) ans[nz]=true;
-		}
-		//x->z
-		nx=x,ny=y,nz=z;
-		nz+=nx;
-		nx=0;
-		if(nz>c){ nx=nz-c; nz=c; } 
-			if(!d[nx][ny]){
-			q.push(make_pair(nx,ny));
-			d[nx][ny]=true;
-			if(nx==0) ans[nz]=true;
-		}
-		//y->x
-		nx=x,ny=y,nz=z;
-		nx+=ny;
-		ny=0;
-		if(nx>a){ ny=nx-a; nx=a; } 
-			if(!d[nx][ny]){
-			q.push(make_pair(nx,ny));
-			d[nx][ny]=true;
-			if(nx==0) ans[nz]=true;
-		}
-		//y->z
-		nx=x,ny=y,nz=z;
-		nz+=ny;
-		ny=0;
-		if(nz>c){ ny=nz-c; nz=c; } 
-			if(!d[nx][ny]){
-			q.push(make_pair(nx,ny));
-			d[nx][ny]=true;
-			if(nx==0) ans[nz]=true;
-		}
-		//z->x
-		nx=x,ny=y,nz=z;
-		nx+=nz;
-		nz=0;
-		if(nx>a){ nz=nx-a; nx=a; } 
-		if(!d[nx][ny]){
-			q.push(make_pair(nx,ny));
-			d[nx][ny]=true;
-			if(nx==0) ans[nz]=true;
-		}
-		//z->y
-		nx=x,ny=y,nz=z;
-		nx+=ny;
-		ny=0;
-		if(ny>b){ nz=ny-b; ny=b; } 
-			if(!d[nx][ny]){
-			q.push(make_pair(nx,ny));
-			d[nx][ny]=true;
-			if(nx==0) ans[nz]=true;
+		for(int next : {now-1, now+1, now*2}){
+			if(next>=0 && next<=100000){
+				if(!check[next]){
+					q.push(next);
+					dist[next] = dist[now]+1;
+					check[next] = true;
+					cnt[next]=cnt[now];
+				}
+				else if(dist[next]==dist[now]+1){
+					cnt[next]+=cnt[now];		
+				}
+			}
 		}
 	}
-	for(int i=0;i<=200;i++){
-		if(ans[i]) cout << i << " ";
-	}
-	cout << '\n';
+	cout << dist[k] << '\n' << cnt[k] << '\n';
 } 
