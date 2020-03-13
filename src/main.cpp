@@ -2,79 +2,53 @@
 #include <queue>
 #include <vector>
 #include <string>
-#include <algorithm>
+#include <tuple>
 using namespace std;
 int dx[4] = {0,0,-1,1};
 int dy[4] = {-1,1,0,0};
-vector<vector<int>> bfs(vector<string> &a, int sx, int sy){
-	int n = a.size();
-	int m = a[0].size();
-	vector<vector<int>> dist(n,vector<int>(m,-1));
-	queue<pair<int,int>> q;
-	q.push(make_pair(sx,sy));
-	dist[sx][sy]=0;
-	while(!q.empty()){
-		int x = q.front().first;
-		int y = q.front().second;
-		q.pop();
-		for(int k=0;k<4;k++){
-			int nx = x+dx[k];
-			int ny = y+dy[k];
-			if(nx>=0 && nx<n && ny>=0 && ny<m){
-				if(a[nx][ny]!='x' && dist[nx][ny]==-1){
-					q.push(make_pair(nx,ny));
-					dist[nx][ny] = dist[x][y] + 1;
-				}
-			}
-		}
-	}
-	return dist;
-}
 int main() {
 	freopen("a.txt","r",stdin);
-	while(true){
-		int n,m;
-		cin >> m >> n;
-		if(n==0 && m==0) break;
-		vector<string> a(n);
-		for(int i=0;i<n;i++){
-			cin >> a[i];	
-		}
-		vector<pair<int,int>> b(1); // 한자리는 시작점을 위해서..
-		for(int i=0;i<n;i++){
-			for(int j=0;j<m;j++){
-				if(a[i][j]=='o') b[0] = make_pair(i,j);
-				else if(a[i][j]=='*') b.push_back(make_pair(i,j));
-			}
-		}
-		int l=b.size();
-		vector<vector<int>> d(l,vector<int>(l));
-		bool ok = true;
-		for(int i=0;i<l;i++){
-			auto dist = bfs(a,b[i].first,b[i].second);
-			for(int j=0;j<l;j++){
-				d[i][j] = dist[b[j].first][b[j].second];
-				if(d[i][j]==-1){
-					ok=false;	
-				}
-			}
-		}
-		if(ok==false){
-			cout << -1 << '\n';
-			continue;
-		}
-		vector<int> p(l-1);
-		for(int i=0;i<l-1;i++){
-			p[i]=i+1;	
-		}
-		int ans=-1;
-		do{
-			int now = d[0][p[0]];
-			for(int i=0;i<l-2;i++){
-				now += d[p[i]][p[i+1]];	
-			}
-			if(ans==-1 || ans>now) ans=now;
-		}while(next_permutation(p.begin(),p.end()));
-		cout << ans << '\n';
+	int n,m;
+	cin >> m >> n;
+	vector<string> a(n);
+	for(int i=0;i<n;i++){
+		cin >> a[i];
 	}
+	vector<pair<int,int>> c;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			if(a[i][j]=='C'){
+				c.push_back(make_pair(i,j));
+			}
+		}
+	}
+	vector<vector<int>> dist(n, vector<int>(m, -1));
+	queue<pair<int,int>> q;
+	q.push(make_pair(c[0].first,c[0].second));
+	dist[c[0].first][c[0].second] = 0;
+	while(!q.empty()){
+		int x,y;
+		tie(x,y) = q.front();
+		q.pop();
+		for(int k=0;k<4;k++){
+			int nx = x + dx[k];
+			int ny = y + dy[k];
+			while(1){
+				if(nx<0 || nx>=n || ny<0 || ny>=m) break; // if( __ && __ ){ ~~} -> 이런식으로 짜면 while문 무한루프됨
+				if(a[nx][ny]=='*') break; 
+				if(dist[nx][ny]==-1){
+					q.push(make_pair(nx,ny));
+					dist[nx][ny] = dist[x][y] + 1;
+				}	
+				nx += dx[k];
+				ny += dy[k];
+		/*		if(dist[nx][ny]!=-1 || a[nx][ny]=='*') break; // 처음에 이렇게 짜서 틀림. dist에서 이미 지나간 곳을 교차해서 지나가는 경우를 간과한 코드. dist[][]가 -1이 아니어도 다음 인덱스는 -1일 수도 있으므로 break를 하면 안되고 nx,ny를 갱신해야함
+				q.push(make_pair(nx,ny));
+				dist[nx][ny] = dist[x][y] + 1;
+				nx += dx[k];
+				ny += dy[k];*/
+			}
+		}
+	}
+	cout << dist[c[1].first][c[1].second]-1 << '\n';
 } 
