@@ -1,54 +1,56 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-#include <string>
-#include <tuple>
+#include <cstring>
 using namespace std;
+int a[51][51];
+bool d[51][51];
+int n,m;
 int dx[4] = {0,0,-1,1};
 int dy[4] = {-1,1,0,0};
+void bfs(int i, int j){
+	queue<pair<int,int>> q;
+	q.push(make_pair(i,j));
+	d[i][j]=true;
+	while(!q.empty()){
+		int x = q.front().first;
+		int y = q.front().second;
+		q.pop();
+		for(int l=0;l<4;l++){
+			int nx = x + dx[l];
+			int ny = y + dy[l];
+			if(nx>=0 && nx<n && ny>=0 && ny<m){
+				if(d[nx][ny]==false && a[nx][ny]==1){
+					q.push(make_pair(nx,ny));
+					d[nx][ny] = true;
+				}
+			}
+		}
+	}
+}
 int main() {
 	freopen("a.txt","r",stdin);
-	int n,m;
-	cin >> m >> n;
-	vector<string> a(n);
-	for(int i=0;i<n;i++){
-		cin >> a[i];
-	}
-	vector<pair<int,int>> c;
-	for(int i=0;i<n;i++){
-		for(int j=0;j<m;j++){
-			if(a[i][j]=='C'){
-				c.push_back(make_pair(i,j));
+	int t;
+	cin >> t;
+	while(t--){
+		memset(a,0,sizeof(a));
+		memset(d,false,sizeof(d));
+		int k;
+		cin >> n >> m >> k;
+		for(int i=0;i<k;i++){
+			int x,y;
+			cin >> x >> y;
+			a[x][y]=1;
+		}
+		int ans=0;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				if(a[i][j]==1 && d[i][j]==false){
+					bfs(i,j);
+					ans++;
+				}
 			}
 		}
+		cout << ans << '\n';
 	}
-	vector<vector<int>> dist(n, vector<int>(m, -1));
-	queue<pair<int,int>> q;
-	q.push(make_pair(c[0].first,c[0].second));
-	dist[c[0].first][c[0].second] = 0;
-	while(!q.empty()){
-		int x,y;
-		tie(x,y) = q.front();
-		q.pop();
-		for(int k=0;k<4;k++){
-			int nx = x + dx[k];
-			int ny = y + dy[k];
-			while(1){
-				if(nx<0 || nx>=n || ny<0 || ny>=m) break; // if( __ && __ ){ ~~} -> 이런식으로 짜면 while문 무한루프됨
-				if(a[nx][ny]=='*') break; 
-				if(dist[nx][ny]==-1){
-					q.push(make_pair(nx,ny));
-					dist[nx][ny] = dist[x][y] + 1;
-				}	
-				nx += dx[k];
-				ny += dy[k];
-		/*		if(dist[nx][ny]!=-1 || a[nx][ny]=='*') break; // 처음에 이렇게 짜서 틀림. dist에서 이미 지나간 곳을 교차해서 지나가는 경우를 간과한 코드. dist[][]가 -1이 아니어도 다음 인덱스는 -1일 수도 있으므로 break를 하면 안되고 nx,ny를 갱신해야함
-				q.push(make_pair(nx,ny));
-				dist[nx][ny] = dist[x][y] + 1;
-				nx += dx[k];
-				ny += dy[k];*/
-			}
-		}
-	}
-	cout << dist[c[1].first][c[1].second]-1 << '\n';
 } 
