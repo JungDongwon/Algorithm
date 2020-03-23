@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 long long a[200001];
-long long b[200001];
+long long b[200001];// long long 주의
 int main() {
 	freopen("a.txt","r",stdin);
 	long long n;
