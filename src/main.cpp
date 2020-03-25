@@ -2,24 +2,23 @@
 using namespace std;
 int main() {
 	freopen("a.txt","r",stdin);
-	int n;
-	cin >> n;
+	int n,k;
+	cin >> n >> k;
 	vector<int> a(n);
-	vector<int> s(n);
 	for(int i=0;i<n;i++){
-		cin >> a[i];
+		cin >> a[i];	
 	}
-	sort(a.begin(),a.end());
-	int sum=0;
-	for(int i=0;i<n;i++){
-		sum=sum+a[i];
-		s[i]=sum;
+	int ans=0;
+	for(int i=n-1;i>=0;i--){
+		if(k<a[i]) continue;
+		else{
+			while(1){
+				k-=a[i];
+				ans++;
+				if(k<a[i]) break;
+			}
+		}
 	}
-	sum=0;
-	for(int i=0;i<n;i++){
-		sum+=s[i];	
-		printf("%d",s[i]);
-	}
-	cout << sum << '\n';
+	cout << ans <<'\n';
 }
 	
