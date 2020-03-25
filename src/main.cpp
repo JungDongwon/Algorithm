@@ -1,24 +1,25 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
-long long a[200001];
-long long b[200001];// long long 주의
 int main() {
 	freopen("a.txt","r",stdin);
-	long long n;
+	int n;
 	cin >> n;
+	vector<int> a(n);
+	vector<int> s(n);
 	for(int i=0;i<n;i++){
-		int t;
-		cin >> t;
-		a[i]=t;
-		b[t]+=1;
+		cin >> a[i];
 	}
-	long long total=0;
-	for(int i=1;i<=n;i++){
-		total+=b[i]*(b[i]-1)/2;		
-	}
-	
+	sort(a.begin(),a.end());
+	int sum=0;
 	for(int i=0;i<n;i++){
-		cout << total-(b[a[i]]-1) << '\n';	
+		sum=sum+a[i];
+		s[i]=sum;
 	}
+	sum=0;
+	for(int i=0;i<n;i++){
+		sum+=s[i];	
+		printf("%d",s[i]);
+	}
+	cout << sum << '\n';
 }
+	
