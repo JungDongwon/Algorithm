@@ -1,23 +1,39 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
 int main() {
 	freopen("a.txt","r",stdin);
 	int n;
 	cin >> n;
-	vector<int> a(n);
-	for(int i=0;i<n;i++){
-		cin >> a[i];
+	while(n--){
+		int ncandy;
+		cin >> ncandy;
+		vector<int> inp(ncandy);
+		for(int i=0;i<ncandy;i++){
+			cin >> inp[i];
+		}
+		int l=0,r=ncandy-1;
+		int suml=0,sumr=0,cnt=0,totall=0,totalr=0;
+		while(l<=r){
+			if(cnt%2==0){
+				int templ=0;
+				while(l<=r && templ<=sumr){
+					templ+=inp[l++];
+				}
+				totall+=templ;
+				suml=templ;
+			}
+			else{
+				int tempr=0;
+				while(l<=r && tempr<=suml){
+					tempr+=inp[r--];
+				}
+				totalr+=tempr;
+				sumr=tempr;
+			}
+			cnt++;
+		}
+		cout << cnt << " " << totall << " " << totalr << '\n';
 	}
-	sort(a.begin(),a.end());
-	//1 1 2 3 6 7 30
-	int sum=0;
-	for(int i=0;i<n;i++){
-		if(sum+2<=a[i]) break;
-		sum+=a[i];
-	}
-	cout << sum+1 <<'\n';
-	return 0;
 }
-	
