@@ -1,0 +1,17 @@
+// 규칙 찾아서 쉽게 풀 수 있는 문제
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+int main() {
+	int n;
+	cin >> n;
+	while(n--){
+		int a,b;
+		cin >> a >> b;
+		int i = b/(a-1);
+		int j = b%(a-1);
+		if(j==0)j=-1;
+		cout << i*a+j << '\n';
+	}
+}
