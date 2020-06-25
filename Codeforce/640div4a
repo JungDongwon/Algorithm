@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+int main() {
+	int n,a;
+	cin >> n;
+	vector<int> ans;
+	while(n--){
+		ans.clear();
+		cin >> a;
+		int div=10;
+		while(a){
+			if(a%div!=0) ans.push_back(a%div);
+			a=(a/div)*div;
+			div*=10;
+		}
+		cout << ans.size() <<'\n';
+		for(int i=0;i<ans.size();i++){
+			cout << ans[i] <<" ";	
+		}
+		cout <<'\n';
+	}
+}
