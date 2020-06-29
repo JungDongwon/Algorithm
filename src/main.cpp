@@ -1,39 +1,26 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 int main() {
 	freopen("a.txt","r",stdin);
-	int n;
-	cin >> n;
-	while(n--){
-		int ncandy;
-		cin >> ncandy;
-		vector<int> inp(ncandy);
-		for(int i=0;i<ncandy;i++){
-			cin >> inp[i];
-		}
-		int l=0,r=ncandy-1;
-		int suml=0,sumr=0,cnt=0,totall=0,totalr=0;
-		while(l<=r){
-			if(cnt%2==0){
-				int templ=0;
-				while(l<=r && templ<=sumr){
-					templ+=inp[l++];
-				}
-				totall+=templ;
-				suml=templ;
-			}
-			else{
-				int tempr=0;
-				while(l<=r && tempr<=suml){
-					tempr+=inp[r--];
-				}
-				totalr+=tempr;
-				sumr=tempr;
-			}
-			cnt++;
-		}
-		cout << cnt << " " << totall << " " << totalr << '\n';
+	int c;
+	int m,n;
+	int ans=0;
+	cin >> n >> m;
+	vector<int> a(n);
+	for(int i=0;i<n;i++){
+		cin >> a[i];	
 	}
+	int s = 0, l = 0, r = 0;
+	while(1){
+		if(s > m) {
+			s-=a[l++];
+		}
+		else if(r == n) break;
+		else s += a[r++];
+		if(s == m){
+			ans++;
+		}
+	}
+	cout << ans << '\n';
 }
