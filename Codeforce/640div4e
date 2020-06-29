@@ -1,5 +1,5 @@
 // two pointer algorithm, 또는 sliding window 문제
-// 총 O(n^2)으로 풀 수 있었음
+// 총 O(n^2)으로 풀 수 있었음.
 #include <bits/stdc++.h>
 
 using namespace std;
