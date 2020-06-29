@@ -1,0 +1,39 @@
+// O(n) 시뮬레이션 문제
+#include <iostream>
+#include <vector>
+
+using namespace std;
+int main() {
+	int n;
+	cin >> n;
+	while(n--){
+		int ncandy;
+		cin >> ncandy;
+		vector<int> inp(ncandy);
+		for(int i=0;i<ncandy;i++){
+			cin >> inp[i];
+		}
+		int l=0,r=ncandy-1;
+		int suml=0,sumr=0,cnt=0,totall=0,totalr=0;
+		while(l<=r){
+			if(cnt%2==0){
+				int templ=0;
+				while(l<=r && templ<=sumr){
+					templ+=inp[l++];
+				}
+				totall+=templ;
+				suml=templ;
+			}
+			else{
+				int tempr=0;
+				while(l<=r && tempr<=suml){
+					tempr+=inp[r--];
+				}
+				totalr+=tempr;
+				sumr=tempr;
+			}
+			cnt++;
+		}
+		cout << cnt << " " << totall << " " << totalr << '\n';
+	}
+}
