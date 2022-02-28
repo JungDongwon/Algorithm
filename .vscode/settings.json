@@ -31,6 +31,10 @@
     "iostream": "cpp",
     "ostream": "cpp",
     "ratio": "cpp",
-    "tuple": "cpp"
+    "tuple": "cpp",
+    "chrono": "cpp",
+    "random": "cpp",
+    "limits": "cpp",
+    "valarray": "cpp"
   }
 }
