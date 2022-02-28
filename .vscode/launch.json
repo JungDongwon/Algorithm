@@ -35,9 +35,9 @@
         ""
       ],
       "stopAtEntry": false,
-      "cwd": "c:/Users/dg523/Algorithm/Algorithm/BOJ",
+      "cwd": "c:/Users/dg523/Algorithm/Algorithm/BOJ/Simulation",
       "environment": [],
-      "program": "c:/Users/dg523/Algorithm/Algorithm/BOJ/build/Debug/outDebug",
+      "program": "c:/Users/dg523/Algorithm/Algorithm/BOJ/Simulation/build/Debug/outDebug",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "C:/mingw64/bin/gdb.exe",
