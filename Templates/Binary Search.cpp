@@ -1,6 +1,6 @@
-// binarySearch1: 가장 기본적인 형태, 하나의 element만 접근하여 정답을 얻을 수 있는 경우 사용
-// binarySearch2: 두개의 element(가운데, 오른쪽)에 접근하여 정답을 얻을 수 있는 경우 사용. Search Space가 2 이상 필요.
-// binarySearch3: 세개의 element(왼쪽, 가운데, 오른쪽)에 접근하여 정답을 얻을 수 있는 경우 사용. Search Space가 3 이상 필요.
+// binarySearch1: 가장 기본적인 형태, 한 개의 element만 접근하여 정답을 얻을 수 있는 경우, Duplicate이 없는 경우
+// binarySearch2: 한 개의 element만 접근하여 정답을 얻을 수 없는 경우, Duplicate이 있는 경우, 마지막에 한 개의 element만 남음
+// binarySearch3: 한 개의 element만 접근하여 정답을 얻을 수 없는 경우, Duplicate이 있는 경우, 마지막에 두 개의 element만 남음
 
 int binarySearch1(vector<int>& nums, int target){
   if(nums.size() == 0)
