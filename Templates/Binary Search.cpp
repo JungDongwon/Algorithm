@@ -18,3 +18,5 @@ int binarySearch(vector<int>& nums, int target){
 // Consideration 1 : Set up the boundary to include all possible elements
 // Consideration 2 : After exiting the while loop, left is the minimal k satisfying the condition function
 // Consideration 3 : Experiences
+
+// Reference : https://towardsdatascience.com/powerful-ultimate-binary-search-template-and-many-leetcode-problems-1f850ef95651
