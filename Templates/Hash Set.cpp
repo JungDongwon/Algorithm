@@ -16,8 +16,12 @@ int main() {
     // 5. get the size of the hash set
     cout << "The size of hash set is: " << hashset.size() << endl; 
     // 6. iterate the hash set
+    /*
     for (auto it = hashset.begin(); it != hashset.end(); ++it) {
         cout << (*it) << " ";
+    }*/
+    for (auto z : hashset){
+        cout << z << " ";   
     }
     cout << "are in the hash set." << endl;
     // 7. clear the hash set
