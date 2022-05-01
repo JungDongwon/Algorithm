@@ -14,15 +14,20 @@ int main() {
     // 5. delete a key
     hashmap.erase(2);
     // 6. check if a key is in the hash map
-    if (hashmap.count(2) <= 0) {
+    if (hashmap.count(2) == 0) {
         cout << "Key 2 is not in the hash map." << endl;
     }
     // 7. get the size of the hash map
     cout << "the size of hash map is: " << hashmap.size() << endl; 
     // 8. iterate the hash map
+    /*
     for (auto it = hashmap.begin(); it != hashmap.end(); ++it) {
         cout << "(" << it->first << "," << it->second << ") ";
+    }*/
+    for (auto z : hashmap){
+        cout << "(" << z.first << "," << z.second << ") ";   
     }
+        
     cout << "are in the hash map." << endl;
     // 9. clear the hash map
     hashmap.clear();
@@ -32,5 +37,6 @@ int main() {
     }
 }
 
-// Hash Map은 unordered_map<Type> STL 사용하여 구현.
+// Hash Map은 unordered_map<Type, InfoType> STL 사용하여 구현.
+// InfoType은 vector도 
 // reference: Leetcode
