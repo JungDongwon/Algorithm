@@ -12,14 +12,11 @@ private:
   vector<int> root;
   vector<int> rank;
 public:
-    UnionFind(int sz) : root(sz), rank(sz) {
-        for (int i = 0; i < sz; i++) {
-            root[i] = i;
-            rank[i] = 1;
-        }
+    UnionFind(int sz) : root(sz,-1), rank(sz,1) {
+
     }
     int find(int x) {
-        if (x == root[x]) {
+        if (root[x] == -1) {
             return x;
         }
         return root[x] = find(root[x]);
