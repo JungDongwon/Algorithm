@@ -42,3 +42,5 @@ public:
         return find(x) == find(y);
     }
 };
+
+// reference: Leetcode
