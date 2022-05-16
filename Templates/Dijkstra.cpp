@@ -13,7 +13,6 @@ void dijkstra(vector<int>& signalReceivedAt, int source, int n) {
         int currNode = pq.top().second; 
         pq.pop();
          
-        // Skip already visited vertex 
         if (currNodeTime > signalReceivedAt[currNode]) {
             continue;
         }
