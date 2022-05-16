@@ -37,3 +37,7 @@ void dijkstra(vector<int>& signalReceivedAt, int source, int n) {
 // weight가 다르면, 
 // Dijkstra will visit through the shortest path and will not visit the same node twice (More Efficient)
 // BFS uses the normal queue, so all the path of the graph are visited to get the minimum distance.
+
+// How to transform BFS to Dijkstra
+// 1. Use priority queue instead of a normal queue.
+// 2. Don't keep track on visited nodes, and instead track distance(weights) from the starting node.
