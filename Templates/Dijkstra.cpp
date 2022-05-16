@@ -33,3 +33,7 @@ void dijkstra(vector<int>& signalReceivedAt, int source, int n) {
     }
 }
 // Reference: Leetcode
+// weight가 모두 같으면 BFS와 동일함. 
+// weight가 다르면, 
+// Dijkstra will visit through the shortest path and will not visit the same node twice (More Efficient)
+// BFS uses the normal queue, so all the path of the graph are visited to get the minimum distance.
