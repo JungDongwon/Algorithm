@@ -1,16 +1,23 @@
 // Bellman Ford Algorithm with k-hops restriction.
 
 int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-  vector<int> dist(n,INT_MAX);
-  dist[src] = 0;
+  if (src == dst) return 0;
+        
+  vector<int> previous(n,INT_MAX);
+  vector<int> current(n,INT_MAX);
+  previous[src] = 0;
+  
   for(int i=0;i<k+1;i++){
-      vector<int> temp(dist);
-      for(auto flight : flights){       // flight = [src, dst, weight]
-          if(dist[flight[0]] != INT_MAX){
-              temp[flight[1]] = min(temp[flight[1]],dist[flight[0]]+flight[2]);
+      for(auto flight : flights){
+          int previous_node = flight[0];
+          int current_node = flight[1];
+          int cost = flight[2];
+
+          if(previous[previous_node] != INT_MAX){
+              current[current_node] = min(current[current_node],previous[previous_node]+cost);
           }
       }
-      dist = temp;
+      previous = current;
   }
-  return dist[dst] == INT_MAX ? -1 : dist[dst];
+  return current[dst] == INT_MAX ? -1 : current[dst];
 }
