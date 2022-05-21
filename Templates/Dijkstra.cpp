@@ -1,8 +1,7 @@
 vector<pair<int, int>> adj[101];
    
 void dijkstra(vector<int>& signalReceivedAt, int source, int n) {
-    priority_queue<pair<int, int>, vector<pair<int, int>>, 
-    greater<pair<int, int>>> pq;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     pq.push({0, source});
 
     // Time for starting node is 0
