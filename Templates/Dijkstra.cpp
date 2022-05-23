@@ -40,3 +40,5 @@ void dijkstra(vector<int>& signalReceivedAt, int source, int n) {
 // How to transform BFS to Dijkstra
 // 1. Use priority queue instead of a normal queue.
 // 2. Don't keep track on visited nodes, and instead track distance(weights) from the starting node.
+
+// Dijkstra는 greedy한 알고리즘이므로 visited를 둘 필요가 없지만, redundant한 노드 방문을 줄이기 위해 visited를 둘 수도 있다. 
